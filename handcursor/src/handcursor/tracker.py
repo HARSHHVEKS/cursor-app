@@ -1,21 +1,30 @@
-import cv2
 import time
+from pathlib import Path
+
+import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+# Default model lives at <project root>/models/hand_landmarker.task
+DEFAULT_MODEL_PATH = Path(__file__).resolve().parents[2] / "models" / "hand_landmarker.task"
+
 
 class HandTracker:
-    def __init__(self, model_path="models/hand_landmarker.task"):
+    def __init__(self, model_path=None, num_hands=1,
+                 min_hand_detection_confidence=0.6,
+                 min_hand_presence_confidence=0.6,
+                 min_tracking_confidence=0.6):
         # Point the detector at the model file we downloaded.
+        model_path = str(model_path or DEFAULT_MODEL_PATH)
         base_options = python.BaseOptions(model_asset_path=model_path)
         options = vision.HandLandmarkerOptions(
             base_options=base_options,
             running_mode=vision.RunningMode.VIDEO,   # a stream of frames, not one photo
-            num_hands=1,                             # one hand -> less work
-            min_hand_detection_confidence=0.7,
-            min_hand_presence_confidence=0.7,
-            min_tracking_confidence=0.7,
+            num_hands=num_hands,                     # one hand -> less work
+            min_hand_detection_confidence=min_hand_detection_confidence,
+            min_hand_presence_confidence=min_hand_presence_confidence,
+            min_tracking_confidence=min_tracking_confidence,
         )
         self.detector = vision.HandLandmarker.create_from_options(options)
 

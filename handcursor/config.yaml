@@ -1,0 +1,47 @@
+# HandCursor configuration — every tunable in one place.
+# Anything you omit falls back to a built-in default (see src/handcursor/config.py).
+
+camera:
+  index: 0        # which webcam (0 = default). Try 1, 2… for external cams.
+  width: 640      # capture resolution. Smaller = less CPU, coarser tracking.
+  height: 480
+
+# IMPORTANT: set this to your REAL monitor resolution in pixels, or the cursor
+# won't reach the screen edges (or will overshoot). Find it with `xrandr` (X11)
+# or `wlr-randr` (Wayland), or your display settings.
+screen:
+  width: 1920
+  height: 1080
+
+# Active region: fraction trimmed off each side of the camera frame. The middle
+# box maps to the whole screen, so small hand moves cover the display and you
+# don't have to reach the frame edges. Bigger margin = more sensitive.
+mapping:
+  margin: 0.15
+
+# One Euro Filter smoothing.
+#   min_cutoff: lower = smoother but more lag (try 0.5–3.0)
+#   beta:       higher = snappier on fast moves (try 0.0–0.1)
+smoothing:
+  min_cutoff: 1.5
+  beta: 0.02
+  d_cutoff: 1.0
+
+# Pinch = click/hold. Ratio = distance(thumb,index) / hand-size.
+#   press_ratio:   fingers must get this close to start a click
+#   release_ratio: must open past this to end it (must be > press_ratio)
+#   debounce_frames: how many frames a change must persist (anti-flicker)
+pinch:
+  press_ratio: 0.35
+  release_ratio: 0.55
+  debounce_frames: 2
+
+# Hand-tracking model confidences (0..1). Higher = fewer false hands, more drops.
+tracker:
+  num_hands: 1
+  min_detection_confidence: 0.6
+  min_presence_confidence: 0.6
+  min_tracking_confidence: 0.6
+
+# Debug preview window. true while learning; false = lower CPU. Toggle with 'h'.
+preview: true
