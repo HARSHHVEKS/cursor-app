@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "handcursor"
+version = "0.1.0"
+description = "Control the mouse cursor with hand/finger movements (MediaPipe + evdev)."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mediapipe",
+    "numpy",
+    "evdev",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+handcursor = "handcursor.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
