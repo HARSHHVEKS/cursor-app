@@ -1,0 +1,32 @@
+# --- Python virtual environment (never commit this) ---
+.venv/
+venv/
+env/
+
+# --- Python bytecode / caches ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Test / tooling caches ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# --- Runtime / logs ---
+*.log
+
+# NOTE: models/hand_landmarker.task IS committed on purpose — it's required to
+# run and small (~8MB), so cloning gives you a working app with no extra steps.
